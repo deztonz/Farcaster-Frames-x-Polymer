@@ -201,10 +201,10 @@ app.frame("/verify-ack", async (c) => {
           image: textInImage(text),
           intents: [
             <Button.Reset>
-              Send another packet
+              try another
             </Button.Reset>,
             <Button.Link href={`https://base-sepolia.blockscout.com/tx/${log.transactionHash}`}>
-              Transaction
+              Tx
             </Button.Link>,
             <Button.Link href={`https://github.com/deztonz`}>
             github
