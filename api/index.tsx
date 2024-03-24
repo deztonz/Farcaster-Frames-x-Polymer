@@ -85,7 +85,7 @@ app.frame('/', (c) => {
   })
 })
 
-app.transaction('/send', (c) => {
+app.transaction('/mint', (c) => {
   return c.contract({
     abi: contractAbi,
     chainId: `eip155:${baseSepolia.id}`,
