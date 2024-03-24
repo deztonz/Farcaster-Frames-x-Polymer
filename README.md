@@ -2,10 +2,6 @@
 
 ## 📚 Documentation
 
-There's some basic information here in the README but a more comprehensive documentation can be found in [the official Polymer documentation](https://docs.polymerlabs.org/docs/category/build-ibc-dapps-1).
-
-## 📚 Documentation
-
 Frog.fm documentation can be found in [the official Frog documentation](https://frog.fm/installation).
 
 ## 📋 Prerequisites
