@@ -6,7 +6,7 @@ Frog.fm documentation can be found in [the official Frog documentation](https://
 
 ## 📋 Prerequisites
 
-The repo is **compatible with both Hardhat and Foundry** development environments.
+Ensure you have the following:
 
 - Have [git](https://git-scm.com/downloads) installed
 - Have [node](https://nodejs.org) installed (v18+)
