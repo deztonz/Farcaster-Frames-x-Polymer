@@ -406,6 +406,11 @@ export const contractAbi = [
         "internalType": "uint64",
         "name": "timeoutSeconds",
         "type": "uint64"
+      },
+      {
+        "internalType": "string",
+        "name": "message",
+        "type": "string"
       }
     ],
     "name": "sendUniversalPacket",
