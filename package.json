@@ -1,0 +1,23 @@
+{
+  "name": "template-vercel",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "frog vercel-build",
+    "dev": "frog dev",
+    "deploy": "vercel"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ethers": "^6.11.1",
+    "frog": "latest",
+    "hono": "^4",
+    "uuid": "^9.0.1",
+    "viem": "^2.8.18"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3",
+    "vercel": "^32.3.0"
+  }
+}
