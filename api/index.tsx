@@ -90,7 +90,7 @@ app.transaction('/send', (c) => {
     abi: contractAbi,
     chainId: `eip155:${baseSepolia.id}`,
     functionName: 'sendUniversalPacket',
-    args: [opContractAddress, baseChannelName as `0x${string}`, 36000n,"test"],
+    args: [opContractAddress, baseChannelName as `0x${string}`, 36000n],
     to: baseContractAddress
   })
 })
