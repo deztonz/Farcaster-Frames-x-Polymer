@@ -210,7 +210,7 @@ app.frame("/verify-ack", async (c) => {
             github
           </Button.Link>,
           <Button.Link href={`https://discord.gg/Wfydpshds8`}>
-          polymer discord
+          discord
         </Button.Link>,
           ],
         });
