@@ -89,7 +89,7 @@ app.transaction('/mint', (c) => {
   return c.contract({
     abi: contractAbi,
     chainId: `eip155:${baseSepolia.id}`,
-    functionName: 'sendUniversalPacket',
+    functionName: 'mint',
     args: [opContractAddress, baseChannelName as `0x${string}`, 36000n],
     to: baseContractAddress
   })
