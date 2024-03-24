@@ -85,11 +85,11 @@ app.frame('/', (c) => {
   })
 })
 
-app.transaction('/mint', (c) => {
+app.transaction('/send', (c) => {
   return c.contract({
     abi: contractAbi,
     chainId: `eip155:${baseSepolia.id}`,
-    functionName: 'mint',
+    functionName: 'sendUniversalPacket',
     args: [opContractAddress, baseChannelName as `0x${string}`, 36000n],
     to: baseContractAddress
   })
@@ -210,7 +210,7 @@ app.frame("/verify-ack", async (c) => {
             github
           </Button.Link>,
           <Button.Link href={`https://discord.gg/Wfydpshds8`}>
-          discord
+          polymer discord
         </Button.Link>,
           ],
         });

@@ -417,29 +417,6 @@ export const contractAbi = [
     "inputs": [
       {
         "internalType": "address",
-        "name": "destPortAddr",
-        "type": "address"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "channelId",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "uint64",
-        "name": "timeoutSeconds",
-        "type": "uint64"
-      }
-    ],
-    "name": "mint",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
         "name": "_middleware",
         "type": "address"
       }
