@@ -23,7 +23,7 @@ const opProvider = new JsonRpcProvider(rpcOptimism, 11155420);
 const baseProvider = new JsonRpcProvider(rpcBase, 84532);
 const opDispatcherContract = new ethers.Contract(opDispatcherAddress, dispatcherAbi, opProvider);
 const baseDispatcherContract = new ethers.Contract(baseDispatcherAddress, dispatcherAbi, baseProvider);
-
+let tranID='' as string;
 
 type State = {
   sendTx: string
@@ -134,6 +134,7 @@ app.frame("/verify-recv-packet", async (c) => {
   const state = deriveState(previousState => {
     if (transactionId) {
       previousState.sendTxId = transactionId;
+      tranID= transactionId;
     }
 
   })
@@ -185,10 +186,10 @@ app.frame("/verify-recv-packet", async (c) => {
     text += `\n🔗 Source Port Address: ${baseContractAddress}`;
     text += `\n🛣️  Source Channel ID: ${process.env.BASE_CHANNEL}`;
     if (state.sequence) {
-      text = `\n📈 Sequence : ${state.sequence}`;
+      text+= `\n📈 Sequence : ${state.sequence}`;
     }
-    if (state.sendTxId) {
-      text += `\n⏳ TxHash: ${state.sendTx}`;
+    if (tranID) {
+      text += `\n⏳ TxHash: ${tranID}`;
     }
     text +=`\n====================================`;
     text +=`\nWaiting for packet receipt...`;
@@ -209,7 +210,7 @@ app.frame("/verify-recv-packet", async (c) => {
     text = `\n📈 Sequence : ${state.sequence}`;
   }
   if (state.sendTxId) {
-    text += `\n⏳ TxHash: ${state.sendTx}`;
+    text += `\n⏳ TxHash: ${tranID}`;
   }
 
   // let text = "IBC packet has been sent";
