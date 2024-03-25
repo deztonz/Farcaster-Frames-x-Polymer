@@ -197,7 +197,7 @@ app.frame("/verify-recv-packet", async (c) => {
   if (state.sequence) {
      text =`\n📈 Sequence : ${state.sequence}`;
    }
-  text+= `\n⏳ Timeout Timestamp: ${36000n}`;
+  text+= `\n⏳ TxHash: ${state.sendTx}`;
   // let text = "IBC packet has been sent";
   // text += `\ntx : `+state.sendTxId;
   // if (state.sequence) {
