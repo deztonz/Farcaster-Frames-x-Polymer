@@ -160,6 +160,8 @@ app.frame("/verify-recv-packet", async (c) => {
   }
 
   let text = "IBC packet has been sent";
+  text += `\ntx : `+state.sendTxId;
+  text += `\nSequence : `+state.sequence;
   if (state.sequence) {
     text = `An IBC packet is sent\n Sequence ${state.sequence}`;
   }
