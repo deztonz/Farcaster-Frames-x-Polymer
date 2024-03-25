@@ -93,7 +93,7 @@ function textInImageSmall(text: string) {
     <div
       style={{
         color: 'white',
-        fontSize: 15,
+        fontSize: 25,
         fontStyle: 'normal',
         letterSpacing: '-0.025em',
         lineHeight: 1.4,
@@ -193,11 +193,11 @@ app.frame("/verify-recv-packet", async (c) => {
   let text = `🔔 Event name: SendPacket`;
   text+= `\n⛓️  Network: base`;
   text+= `\n🔗 Source Port Address: ${baseContractAddress}`;
-  text+= `\n🛣️  Source Channel ID: ${baseChannelName}`;
+  text+= `\n🛣️  Source Channel ID: ${process.env.BASE_CHANNEL}`;
   if (state.sequence) {
      text =`\n📈 Sequence : ${state.sequence}`;
    }
-  text+= `\n⏳ Timeout Timestamp: ${state.sendTime}`;
+  text+= `\n⏳ Timeout Timestamp: ${36000n}`;
   // let text = "IBC packet has been sent";
   // text += `\ntx : `+state.sendTxId;
   // if (state.sequence) {
