@@ -23,7 +23,7 @@ const opProvider = new JsonRpcProvider(rpcOptimism, 11155420);
 const baseProvider = new JsonRpcProvider(rpcBase, 84532);
 const opDispatcherContract = new ethers.Contract(opDispatcherAddress, dispatcherAbi, opProvider);
 const baseDispatcherContract = new ethers.Contract(baseDispatcherAddress, dispatcherAbi, baseProvider);
-let tranID='' as string;
+let tranID = '' as string;
 
 type State = {
   sendTx: string
@@ -134,7 +134,7 @@ app.frame("/verify-recv-packet", async (c) => {
   const state = deriveState(previousState => {
     if (transactionId) {
       previousState.sendTxId = transactionId;
-      tranID= transactionId;
+      tranID = transactionId;
     }
 
   })
@@ -164,8 +164,18 @@ app.frame("/verify-recv-packet", async (c) => {
           state.recvTx = log.transactionHash;
           state.recvTime = (await log.getBlock()).timestamp;
 
-          let text = "Verify Packet on Optimism";
-          text += `\nReceived : ${state.recvTime - state.sendTime} seconds`;
+          // let text = "Verify Packet on Optimism";
+          // text += `\nReceived : ${state.recvTime - state.sendTime} seconds`;
+          let text = `🔔 Event name: RecvPacket`;
+          text += `\n⛓️  Network: optimism`;
+          text += `\n🔗 Destination Port Address: ${opContractAddress}`;
+          text += `\n🛣️  Source Channel ID: ${process.env.OP_CHANNEL}`;
+          if (state.sequence) {
+            text += `\n📈 Sequence : ${state.sequence}`;
+          }
+          if (tranID) {
+            text += `\n⏳ TxHash: ${state.recvTx}`;
+          }
 
           return c.res({
             image: textInImage(text),
@@ -186,13 +196,13 @@ app.frame("/verify-recv-packet", async (c) => {
     text += `\n🔗 Source Port Address: ${baseContractAddress}`;
     text += `\n🛣️  Source Channel ID: ${process.env.BASE_CHANNEL}`;
     if (state.sequence) {
-      text+= `\n📈 Sequence : ${state.sequence}`;
+      text += `\n📈 Sequence : ${state.sequence}`;
     }
     if (tranID) {
       text += `\n⏳ TxHash: ${tranID}`;
     }
-    text +=`\n====================================`;
-    text +=`\nWaiting for packet receipt...`;
+    text += `\n====================================`;
+    text += `\nWaiting for packet receipt...`;
     return c.res({
       image: textInImageSmall(text),
       intents: [
@@ -251,6 +261,7 @@ app.frame("/verify-ack", async (c) => {
 
         let text = "Check Packet Acknowledged on Base";
         text += `\nAcknowledged : ${state.ackTime - state.sendTime} seconds`;
+        tranID = '';
 
         return c.res({
           image: textInImage(text),
