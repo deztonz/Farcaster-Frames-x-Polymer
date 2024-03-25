@@ -286,9 +286,6 @@ app.frame("/verify-ack", async (c) => {
             <Button.Link href={`https://base-sepolia.blockscout.com/tx/${log.transactionHash}`}>
               Tx
             </Button.Link>,
-            <Button.Link href={`https://github.com/deztonz`}>
-              github
-            </Button.Link>,
             <Button.Link href={`https://discord.gg/Wfydpshds8`}>
               polymer discord
             </Button.Link>,
