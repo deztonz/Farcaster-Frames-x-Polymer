@@ -313,7 +313,7 @@ app.frame("/verify-ack", async (c) => {
           text += `\n📈 Sequence : ${state.sequence}`;
         }
         if (tranID) {
-          text += `\n⏳ TxHash: ${state.ackTx}`;
+          text += `\n⏳ TxHash: ${state.wrAckTx}`;
         }
 
         return c.res({
