@@ -133,14 +133,14 @@ app.frame("/verify-recv-packet", async (c) => {
 
   const state = deriveState(previousState => {
     if (transactionId) {
-      previousState.sendTxId = transactionId;  
+      previousState.sendTxId = transactionId;
     }
-    
+
   })
-  
+
   if (buttonValue == "verify-packet-receipt") {
     const txId = state.sendTxId;
-    console.log("tx : "+txId);
+    console.log("tx : " + txId);
     let receipt = await baseProvider.getTransactionReceipt(txId);
     for (let log of receipt?.logs || []) {
       let decoded = baseDispatcherContract.interface.parseLog(log);
@@ -180,9 +180,20 @@ app.frame("/verify-recv-packet", async (c) => {
         }
       }
     }
-
+    let text = `🔔 Event name: SendPacket`;
+    text += `\n⛓️  Network: base`;
+    text += `\n🔗 Source Port Address: ${baseContractAddress}`;
+    text += `\n🛣️  Source Channel ID: ${process.env.BASE_CHANNEL}`;
+    if (state.sequence) {
+      text = `\n📈 Sequence : ${state.sequence}`;
+    }
+    if (state.sendTxId) {
+      text += `\n⏳ TxHash: ${state.sendTx}`;
+    }
+    text +=`\n====================================`;
+    text +=`\nWaiting for packet receipt...`;
     return c.res({
-      image: textInImage("Verify Packet on Optimism"),
+      image: textInImageSmall(text),
       intents: [
         <Button value="verify-packet-receipt">
           Verify Packet
@@ -191,13 +202,16 @@ app.frame("/verify-recv-packet", async (c) => {
     });
   }
   let text = `🔔 Event name: SendPacket`;
-  text+= `\n⛓️  Network: base`;
-  text+= `\n🔗 Source Port Address: ${baseContractAddress}`;
-  text+= `\n🛣️  Source Channel ID: ${process.env.BASE_CHANNEL}`;
+  text += `\n⛓️  Network: base`;
+  text += `\n🔗 Source Port Address: ${baseContractAddress}`;
+  text += `\n🛣️  Source Channel ID: ${process.env.BASE_CHANNEL}`;
   if (state.sequence) {
-     text =`\n📈 Sequence : ${state.sequence}`;
-   }
-  text+= `\n⏳ TxHash: ${state.sendTx}`;
+    text = `\n📈 Sequence : ${state.sequence}`;
+  }
+  if (state.sendTxId) {
+    text += `\n⏳ TxHash: ${state.sendTx}`;
+  }
+
   // let text = "IBC packet has been sent";
   // text += `\ntx : `+state.sendTxId;
   // if (state.sequence) {
@@ -247,11 +261,11 @@ app.frame("/verify-ack", async (c) => {
               Tx
             </Button.Link>,
             <Button.Link href={`https://github.com/deztonz`}>
-            github
-          </Button.Link>,
-          <Button.Link href={`https://discord.gg/Wfydpshds8`}>
-          polymer discord
-        </Button.Link>,
+              github
+            </Button.Link>,
+            <Button.Link href={`https://discord.gg/Wfydpshds8`}>
+              polymer discord
+            </Button.Link>,
           ],
         });
       }
