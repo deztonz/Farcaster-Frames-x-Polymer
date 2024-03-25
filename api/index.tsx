@@ -100,7 +100,7 @@ function textInImageSmall(text: string) {
         letterSpacing: '-0.025em',
         lineHeight: 1.4,
         marginTop: 30,
-        padding: '0 120px',
+        padding: '0 75px',
         whiteSpace: 'pre-wrap',
       }}
     >
