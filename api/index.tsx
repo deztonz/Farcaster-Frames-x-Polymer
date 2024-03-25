@@ -57,7 +57,7 @@ function textInImage(text: string) {
       width: '100%',
     }}
   >
-    <img width='250px' height='250px' src={`${process.env.PUBLIC_URL}/polymer.png`}></img>
+    <img width='200px' height='200px' src={`${process.env.PUBLIC_URL}/polymer.png`}></img>
     <div
       style={{
         color: 'white',
@@ -89,11 +89,11 @@ function textInImageSmall(text: string) {
       width: '100%',
     }}
   >
-    <img width='250px' height='250px' src={`${process.env.PUBLIC_URL}/polymer.png`}></img>
+    <img width='200px' height='200px' src={`${process.env.PUBLIC_URL}/polymer.png`}></img>
     <div
       style={{
         color: 'white',
-        fontSize: 25,
+        fontSize: 15,
         fontStyle: 'normal',
         letterSpacing: '-0.025em',
         lineHeight: 1.4,
@@ -190,12 +190,19 @@ app.frame("/verify-recv-packet", async (c) => {
       ],
     });
   }
-
-  let text = "IBC packet has been sent";
-  text += `\ntx : `+state.sendTxId;
+  let text = `🔔 Event name: SendPacket`;
+  text+= `\n⛓️  Network: base`;
+  text+= `\n🔗 Source Port Address: ${baseContractAddress}`;
+  text+= `\n🛣️  Source Channel ID: ${baseChannelName}`;
   if (state.sequence) {
-    text = `An IBC packet is sent\n Sequence ${state.sequence}`;
-  }
+     text =`\n📈 Sequence : ${state.sequence}`;
+   }
+  text+= `\n⏳ Timeout Timestamp: ${state.sendTime}`;
+  // let text = "IBC packet has been sent";
+  // text += `\ntx : `+state.sendTxId;
+  // if (state.sequence) {
+  //   text = `An IBC packet is sent\n Sequence ${state.sequence}`;
+  // }
 
   return c.res({
     image: textInImageSmall(text),
