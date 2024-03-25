@@ -32,6 +32,8 @@ type State = {
   recvTime: number
   ackTx: string
   ackTime: number
+  wrAckTx:string
+  wrAckTime:number
   sequence: number
   sendTxId: string
 }
@@ -176,9 +178,11 @@ app.frame("/verify-recv-packet", async (c) => {
           if (tranID) {
             text += `\n⏳ TxHash: ${state.recvTx}`;
           }
+          text += `\n====================================`;
+          text += `\n⏱️ Waiting for write acknowledgement...`;
 
           return c.res({
-            image: textInImage(text),
+            image: textInImageSmall(text),
             intents: [
               <Button action={'/verify-ack'} value="verify">
                 Verify Packet
@@ -202,7 +206,7 @@ app.frame("/verify-recv-packet", async (c) => {
       text += `\n⏳ TxHash: ${tranID}`;
     }
     text += `\n====================================`;
-    text += `\nWaiting for packet receipt...`;
+    text += `\n⏱️ Waiting for packet receipt...`;
     return c.res({
       image: textInImageSmall(text),
       intents: [
@@ -259,12 +263,22 @@ app.frame("/verify-ack", async (c) => {
         state.ackTx = log.transactionHash;
         state.ackTime = (await log.getBlock()).timestamp;
 
-        let text = "Check Packet Acknowledged on Base";
-        text += `\nAcknowledged : ${state.ackTime - state.sendTime} seconds`;
+        // let text = "Check Packet Acknowledged on Base";
+        // text += `\nAcknowledged : ${state.ackTime - state.sendTime} seconds`;
         tranID = '';
+        let text = `🔔 Event name: Acknowledgement`;
+        text += `\n⛓️  Network: base`;
+        text += `\n🔗 Destination Port Address: ${baseContractAddress}`;
+        text += `\n🛣️  Source Channel ID: ${process.env.OP_CHANNEL}`;
+        if (state.sequence) {
+          text += `\n📈 Sequence : ${state.sequence}`;
+        }
+        if (tranID) {
+          text += `\n⏳ TxHash: ${state.ackTx}`;
+        }
 
         return c.res({
-          image: textInImage(text),
+          image: textInImageSmall(text),
           intents: [
             <Button.Reset>
               try another
@@ -278,6 +292,36 @@ app.frame("/verify-ack", async (c) => {
             <Button.Link href={`https://discord.gg/Wfydpshds8`}>
               polymer discord
             </Button.Link>,
+          ],
+        });
+      }
+    }
+    else if (decoded && decoded.name == "WriteAckPacket") {
+      const [, , ackSeq] = decoded.args;
+      if (ackSeq == state.sequence) {
+        state.wrAckTx = log.transactionHash;
+        state.wrAckTime = (await log.getBlock()).timestamp;
+
+        // let text = "Check Packet Acknowledged on Base";
+        // text += `\nAcknowledged : ${state.ackTime - state.sendTime} seconds`;
+        tranID = '';
+        let text = `🔔 Event name: WriteAckPacket`;
+        text += `\n⛓️  Network: optimism`;
+        text += `\n🔗 Destination Port Address: ${opContractAddress}`;
+        text += `\n🛣️  Source Channel ID: ${process.env.BASE_CHANNEL}`;
+        if (state.sequence) {
+          text += `\n📈 Sequence : ${state.sequence}`;
+        }
+        if (tranID) {
+          text += `\n⏳ TxHash: ${state.ackTx}`;
+        }
+
+        return c.res({
+          image: textInImageSmall(text),
+          intents: [
+            <Button value="verify-ack">
+              Verify Packet
+            </Button>,
           ],
         });
       }
