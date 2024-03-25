@@ -61,7 +61,39 @@ function textInImage(text: string) {
     <div
       style={{
         color: 'white',
-        fontSize: 50,
+        fontSize: 45,
+        fontStyle: 'normal',
+        letterSpacing: '-0.025em',
+        lineHeight: 1.4,
+        marginTop: 30,
+        padding: '0 120px',
+        whiteSpace: 'pre-wrap',
+      }}
+    >
+      {text}
+    </div>
+  </div>);
+}
+function textInImageSmall(text: string) {
+  return (<div
+    style={{
+      alignItems: 'center',
+      background: 'linear-gradient(to right, #030302, #141414)',
+      backgroundSize: '100% 100%',
+      display: 'flex',
+      flexDirection: 'column',
+      flexWrap: 'nowrap',
+      height: '100%',
+      justifyContent: 'center',
+      textAlign: 'center',
+      width: '100%',
+    }}
+  >
+    <img width='250px' height='250px' src={`${process.env.PUBLIC_URL}/polymer.png`}></img>
+    <div
+      style={{
+        color: 'white',
+        fontSize: 25,
         fontStyle: 'normal',
         letterSpacing: '-0.025em',
         lineHeight: 1.4,
@@ -161,13 +193,12 @@ app.frame("/verify-recv-packet", async (c) => {
 
   let text = "IBC packet has been sent";
   text += `\ntx : `+state.sendTxId;
-  text += `\nSequence : `+state.sequence;
   if (state.sequence) {
     text = `An IBC packet is sent\n Sequence ${state.sequence}`;
   }
 
   return c.res({
-    image: textInImage(text),
+    image: textInImageSmall(text),
     intents: [
       <Button value="verify-packet-receipt">
         Verify Packet
