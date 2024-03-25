@@ -175,7 +175,7 @@ app.frame("/verify-recv-packet", async (c) => {
           if (state.sequence) {
             text += `\n📈 Sequence : ${state.sequence}`;
           }
-          if (tranID) {
+          if (state.recvTx) {
             text += `\n⏳ TxHash: ${state.recvTx}`;
           }
           text += `\n====================================`;
@@ -273,7 +273,7 @@ app.frame("/verify-ack", async (c) => {
         if (state.sequence) {
           text += `\n📈 Sequence : ${state.sequence}`;
         }
-        if (tranID) {
+        if (state.ackTx) {
           text += `\n⏳ TxHash: ${state.ackTx}`;
         }
 
