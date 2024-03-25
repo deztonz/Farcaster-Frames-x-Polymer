@@ -296,40 +296,10 @@ app.frame("/verify-ack", async (c) => {
         });
       }
     }
-    else if (decoded && decoded.name == "WriteAckPacket") {
-      const [, , ackSeq] = decoded.args;
-      if (ackSeq == state.sequence) {
-        state.wrAckTx = log.transactionHash;
-        state.wrAckTime = (await log.getBlock()).timestamp;
-
-        // let text = "Check Packet Acknowledged on Base";
-        // text += `\nAcknowledged : ${state.ackTime - state.sendTime} seconds`;
-        tranID = '';
-        let text = `🔔 Event name: WriteAckPacket`;
-        text += `\n⛓️  Network: optimism`;
-        text += `\n🔗 Destination Port Address: ${opContractAddress}`;
-        text += `\n🛣️  Source Channel ID: ${process.env.BASE_CHANNEL}`;
-        if (state.sequence) {
-          text += `\n📈 Sequence : ${state.sequence}`;
-        }
-        if (tranID) {
-          text += `\n⏳ TxHash: ${state.wrAckTx}`;
-        }
-
-        return c.res({
-          image: textInImageSmall(text),
-          intents: [
-            <Button value="verify-ack">
-              Verify Packet
-            </Button>,
-          ],
-        });
-      }
-    }
   }
 
   return c.res({
-    image: textInImage("Wait IBC Packet for Acknowledged on Base"),
+    image: textInImage("⏱️ Waiting for acknowledgement... on Base"),
     intents: [
       <Button value="verify-ack">
         Verify Packet
