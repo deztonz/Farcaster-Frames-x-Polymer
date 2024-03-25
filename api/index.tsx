@@ -281,7 +281,7 @@ app.frame("/verify-ack", async (c) => {
           image: textInImageSmall(text),
           intents: [
             <Button.Reset>
-              try another
+              try again
             </Button.Reset>,
             <Button.Link href={`https://base-sepolia.blockscout.com/tx/${log.transactionHash}`}>
               Transaction
